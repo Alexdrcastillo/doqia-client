@@ -63,6 +63,7 @@ function NavBar() {
                   padding: 0 2rem;
                   background-color: #84BED1;
                   color: var(--textColor);
+                  z-index: 1000;
                 }
 
                 nav a {
