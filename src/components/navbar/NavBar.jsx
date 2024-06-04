@@ -1,6 +1,4 @@
-
-import { useRef, useEffect } from "react";
-
+import { useRef, useEffect, useState } from "react";
 import HouseIcon from '@mui/icons-material/House';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
@@ -10,9 +8,16 @@ import PetsIcon from '@mui/icons-material/Pets';
 import FaceIcon from '@mui/icons-material/Face';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchBar from "./SearchBar";
+import RegisterOrLogin from "../sesion/RegisterOrLogin";
+import { Link } from "react-router-dom";
 
 function NavBar() {
     const navRef = useRef();
+    const [showOptionsBox, setShowOptionsBox] = useState(false);
+    const [showRegisterOptions, setShowRegisterOptions] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [registerOption, setRegisterOption] = useState("");
+    const [user, setUser] = useState(null);
 
     const showNavbar = () => {
         navRef.current.classList.toggle("responsive_nav");
@@ -34,18 +39,47 @@ function NavBar() {
         };
     }, []);
 
+    const toggleOptions = () => {
+        setShowOptionsBox(!showOptionsBox);
+    };
+
+    const handleRegisterOption = (option) => {
+        setRegisterOption(option);
+        setShowRegisterOptions(false);
+    };
+
+    const handleCreateAccountClick = () => {
+        setShowOptionsBox(false);
+        setShowRegisterOptions(true);
+    };
+
+    const handleCloseRegisterOptions = () => {
+        setShowRegisterOptions(false);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        setUser(null);
+        setShowOptionsBox(false);
+    };
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
+
     return (
         <>
-              
-              <style>{`
+            <style>{`
                 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
 
                 * {
                   padding: 0;
                   margin: 0;
                   box-sizing: border-box;
-                  font-family: "Titillium Web", sans-serif; 
-                 
+                  font-family: "Titillium Web", sans-serif;
                 }
 
                 :root {
@@ -70,12 +104,10 @@ function NavBar() {
                   margin: 0 1rem;
                   color: var(--textColor);
                   text-decoration: none;
-                  
                 }
 
                 nav a:hover {
                   color: var(--secondaryColor);
-                  
                 }
 
                 header .nav-btn {
@@ -88,7 +120,6 @@ function NavBar() {
                   visibility: hidden;
                   opacity: 0;
                   font-size: 1.8rem;
-                  
                 }
 
                 header div,
@@ -106,14 +137,40 @@ function NavBar() {
                   padding: 10px;
                   margin: 5px;
                   border: 1.2px solid black;
-                  border-radius: 8px; /* Bordes redondeados */
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra gris */
+                  border-radius: 8px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 }
 
                 .buttons a {
                   margin-left: 10px;
                   color: #45586E;
                   text-decoration: none;
+                }
+
+                .options-container {
+                  position: absolute;
+                  top: 60px;
+                  right: 10px;
+                  border: 1px solid #000;
+                  border-radius: 10px;
+                  background-color: white;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                  padding: 10px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 10px;
+                }
+
+                .option-button {
+                  padding: 10px;
+                  cursor: pointer;
+                  border: none;
+                  background-color: #f0f0f0;
+                  border-radius: 3px;
+                }
+
+                .option-button:hover {
+                  background-color: #e0e0e0;
                 }
 
                 @media only screen and (max-width: 1024px) {
@@ -134,7 +191,6 @@ function NavBar() {
                     justify-content: center;
                     gap: 1.5rem;
                     background-color: #84BED1;
-                    /* transition: 1s; */
                   }
 
                   header .responsive_nav {
@@ -154,51 +210,113 @@ function NavBar() {
             `}</style>
 
             <header>
-              <img  src="https://media.licdn.com/dms/image/D4D03AQESeidv-KKHSw/profile-displayphoto-shrink_800_800/0/1715365853077?e=1722470400&v=beta&t=USoq2hSsiEukNaXDl68TSx7z_uuqDEx--RguYG0BwBE" alt="" />
-              
-              <nav ref={navRef}>
-                <div className="buttons">
-                    <HouseIcon />
-                    <a href="/#">Hogar</a>
+                <img src="https://media.licdn.com/dms/image/D4D03AQESeidv-KKHSw/profile-displayphoto-shrink_800_800/0/1715365853077?e=1722470400&v=beta&t=USoq2hSsiEukNaXDl68TSx7z_uuqDEx--RguYG0BwBE" alt="" />
+                
+                <nav ref={navRef}>
+                    <div className="buttons">
+                        <HouseIcon />
+                        <a href="/#">Hogar</a>
+                    </div>
+                    <div className="buttons">
+                        <MenuBookIcon />
+                        <a href="/#">Clases</a>
+                    </div>
+                    <div className="buttons">
+                        <SportsGymnasticsIcon />
+                        <a href="/#">Deportes</a>
+                    </div>
+                    <div className="buttons">
+                        <WidgetsIcon />
+                        <a href="/#">Otros</a>
+                    </div>
+                    <div className="buttons">
+                        <SpaIcon />
+                        <a href="/#">Cuidados</a>
+                    </div>
+                    <div className="buttons">
+                        <FaceIcon />
+                        <a href="/#">Belleza</a>
+                    </div>
+                    <div className="buttons">
+                        <PetsIcon />
+                        <a href="/#">Mascotas</a>
+                    </div>
+                </nav>
+                
+                <div>
+                    <a style={{ textDecoration: "none", color: "white", marginBottom: "20vh", marginLeft: "-50px" }} href="/#">Ofrecer servicios</a>
                 </div>
 
-                <div className="buttons">
-                    <MenuBookIcon />
-                    <a href="/#">Clases</a>
+                <div style={{ position: 'relative', marginLeft: "9vh", marginTop: "-20vh" }}>
+                    <div style={{ display: "flex", alignItems: "center", cursor: "pointer", borderRadius: "12px", border: "1px solid black", marginLeft: "-3vh", padding: "8px" }} onClick={toggleOptions}>
+                        <AccountCircleIcon />
+                        <span style={{ marginLeft: "8px", color: "black" }}>{user ? user.username : "Acceder"}</span>
+                    </div>
+                    {showOptionsBox && (
+                        <div className="options-container" style={{ width: "30vh" }}>
+                          {user ? (
+                            <>
+                              <Link to="/profile" style={{ textDecoration: "none", color: "#45586E" }}>
+                                <button className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Perfil</button>
+                              </Link>
+                              <Link to="/services" style={{ textDecoration: "none", color: "#45586E" }}>
+                                <button className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Servicios</button>
+                              </Link>
+                              <button onClick={handleLogout} className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Cerrar sesión</button>
+                            </>
+                          ) : (
+                            <>
+                              <Link to="/login" style={{ textDecoration: "none", color: "#45586E" }}>
+                                <button className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Iniciar sesión</button>
+                              </Link>
+                              <button onClick={handleCreateAccountClick} className="option-button" style={{ border: "1px solid #45586E",backgroundColor: "#84BED1", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Crear cuenta</button>
+                            </>
+                          )}
+                        </div>
+                    )}
                 </div>
-                <div className="buttons">
-                    <SportsGymnasticsIcon/>
-                    <a href="/#">Deportes</a>
-                </div>
-                <div className="buttons">
-                    <WidgetsIcon />
-                    <a href="/#">Otros</a>
-                </div>
-                <div className="buttons">
-                    <SpaIcon />
-                    <a href="/#">Cuidados</a>
-                </div>
-                <div className="buttons">
-                    <FaceIcon />
-                    <a href="/#">Belleza</a>
-                </div>
-                <div className="buttons">
-                    <PetsIcon />
-                    <a href="/#">Mascotas</a>
-                </div>
-              </nav>
-              
-              <div>
-                <a style={{textDecoration: "none", color: "white", marginBottom: "20vh", marginLeft: "-50px"}} href="/#">Ofrecer servicios</a>
-              </div>
 
-              <div style={{borderRadius: "15px", height: "40px", width: "130px", border: "1px solid black", marginBottom: "20vh", background: "white", display: "flex",marginLeft: "4vh", justifyContent: "center", alignItems: "center"}}>
-                <AccountCircleIcon />
-                <a style={{borderRadius: "50%", textDecoration: "none", color: "black"}} href="/#">Acceder</a>
-              </div>
+                    
+                <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+                    <span>&times;</span>
+                </button>
+                <button className="nav-btn" onClick={showNavbar}>
+                    <span>&#9776;</span>
+                </button>
             </header>
-            <div style={{marginTop: "-10vh", marginLeft:"40vh"}}>
+
+            {showRegisterOptions && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        padding: '20px',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                    }}>
+                        <h2>Elige una opción</h2>
+                        <button onClick={() => handleRegisterOption('ofrecer')}>Ofrecer servicios</button>
+                        <button onClick={() => handleRegisterOption('recibir')}>Recibir servicios</button>
+                        <button onClick={handleCloseRegisterOptions}>Cerrar</button>
+                    </div>
+                </div>
+            )}
+<div style={{ marginTop: "-10vh", marginLeft: "40vh" }}>
                 <SearchBar />
+            </div>
+            <div style={{marginLeft:"80vh", marginTop:"20vh"}}>
+            {showRegisterOptions && (
+                        <RegisterOrLogin selectedOption={selectedOption} onClose={handleCloseRegisterOptions} />
+                    )}
             </div>
         </>
     );

@@ -15,8 +15,37 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = (props) => {
+  const [searchResults, setSearchResults] = useState([]);
+  const [address, setAddress] = useState('');
+  const [occupation, setOccupation] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get('https://doqia-backend.onrender.com/services');
+      const filteredResults = response.data.filter(service => {
+        return service.address.toLowerCase() === address.toLowerCase()
+          && service.occupation.toLowerCase().includes(occupation.toLowerCase());
+      });
+      setSearchResults(filteredResults);
+
+      // Verifica si hay resultados y redirige si es necesario
+      if (filteredResults.length > 0) {
+        navigate('/results', { state: { results: filteredResults } }); // Utiliza navigate para redirigir a la ruta '/results'
+      }
+    } catch (error) {
+      console.error('Error searching for services:', error);
+    }
+  };
+
+  console.log(searchResults)
+  
+
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -56,25 +85,42 @@ const SearchBar = (props) => {
       },
     },
   }));
+
+  
   
   return (   
-    <div style={{width: "60vh", display: 'flex'}}>
-  <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Servicio"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+    <div style={{display: "flex"}}>
+      <Search>
+        <SearchIcon style={{marginTop: "1vh"}}   onClick={handleSearch} />
+        <StyledInputBase
+          placeholder="Servicio"
+          value={occupation}
+          onChange={(e) => setOccupation(e.target.value)}
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </Search>
 
-         <Search style={{marginLeft: "-2.5vh"}}>
-         <StyledInputBase
-              placeholder="Direccion"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-         </Search>
+      <Search style={{ marginLeft: "-2.5vh" }}>
+        <StyledInputBase style={{marginTop: "1vh"}}
+          placeholder="Direccion"
+          value={address}
+        
+          onChange={(e) => setAddress(e.target.value)}
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </Search>
+
+        
+
+    
+
+      <ul>
+        {searchResults.map(service => (
+          <li key={service.id}>
+            {service.description} - {service.address}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 };
