@@ -12,9 +12,7 @@ const ResultsToSearch = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const encodedAddress = encodeURIComponent(address);
-        const encodedOccupation = encodeURIComponent(occupation);
-        const response = await axios.get(`https://doqia-client.onrender.com/services/${encodedAddress}/${encodedOccupation}`);
+        const response = await axios.get(`https://doqia-backend.onrender.com/services/${address}/${occupation}`);
         setResults(response.data);
       } catch (error) {
         console.error('Error fetching search results', error);
