@@ -17,7 +17,7 @@ function App() {
         <Route path="/register/client" element={<FormClient />} />
         <Route path="/login" element={<FormLogin />} />
         <Route path="/register/userServices" element={<FormServiceUser />} />
-        <Route path="/results" element={<ResultsToSearch results={searchResults} />} />
+        <Route path="/results/:address/:occupation" element={<ResultsToSearch />} />
       </Routes>
     </>
   );
