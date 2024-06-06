@@ -65,14 +65,14 @@ function NavBar() {
               <p sty>¿Necesitas agendar?</p>
               <p className="mt-[-4vh] ml-[23vh] w-[20vh]">Cancelar ahora</p>
              </div>
-            <div className="text-center z-10 w-[90vh] bg-black flex ml-[-24vh] bg-[#E8E8E8] h-[20vh] rounded-lg">
+            <div className="text-center z-10 w-[90vh] flex ml-[-24vh] bg-[#E8E8E8] h-[20vh] rounded-lg">
               <div className="flex mt-10 ml-5 bg-white w-[30vh]  rounded-lg h-[6vh]">
                <h1 className="mt-1.5 ml-4">Tipo de atencion</h1>
               <select name="atencion" id="" className="rounded-lg "></select>
               </div>
               <div className="flex mt-10 ml-4 bg-white w-[30vh]   rounded-lg h-[6vh]">
                <h1 className="mt-1.5 ml-5">Tipo de atencion</h1>
-              <select name="atencion" id="" className="rounded-lg"></select>
+              <select name="atencion" id="" className="rounded-lg "></select>
               </div>
               <div className="flex mt-10 ml-4 bg-[#6D94A3] text-white w-[20vh]   rounded-lg h-[6vh]">
                 <img src={Calendario} className="w-8 h-8 mt-1 ml-1" alt="" />
