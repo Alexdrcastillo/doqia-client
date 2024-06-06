@@ -14,6 +14,7 @@ const ResultsToSearch = () => {
       try {
         const response = await axios.get(`https://doqia-backend.onrender.com/services/${address}/${occupation}`);
         setResults(response.data);
+      
       } catch (error) {
         console.error('Error fetching search results', error);
       }

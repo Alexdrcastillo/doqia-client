@@ -1,325 +1,87 @@
-import { useRef, useEffect, useState } from "react";
-import HouseIcon from '@mui/icons-material/House';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
-import WidgetsIcon from '@mui/icons-material/Widgets';
-import SpaIcon from '@mui/icons-material/Spa';
-import PetsIcon from '@mui/icons-material/Pets';
-import FaceIcon from '@mui/icons-material/Face';
+import Logo from "../../../images/logo.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SearchBar from "./SearchBar";
-import RegisterOrLogin from "../sesion/RegisterOrLogin";
-import { Link } from "react-router-dom";
+import MedicinaGeneral from "../../../images/medicoGeneralImage.png"
+import Fisioterapia from "../../../images/fisioterapiaImage.png"
+import Nutricion from "../../../images/NutricionImage.png"
+import Psicologia from "../../../images/psicologiaImage.png"
+import Deporte from "../../../images/deporteImage.png"
+import Raya from "../../../images/raya.png"
+import Casita from "../../../images/casa.png"
+import Calendario from "../../../images/calendario.png"
 
 function NavBar() {
-    const navRef = useRef();
-    const [showOptionsBox, setShowOptionsBox] = useState(false);
-    const [showRegisterOptions, setShowRegisterOptions] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [registerOption, setRegisterOption] = useState("");
-    const [user, setUser] = useState(null);
+  return (
+    <div className="bg-[#A7D2E2] h-10">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="flex">
+          <div className="text-white text-xl font-bold mt-2">
+            Paciente
+          </div>
+          <div className="text-white text-xl font-bold mt-2 ml-4">
+            Profesional de salud
+          </div>
+        </div>
+      </div>
+      <div className="bg-[#FAFAFA] mt-1 h-32 w-full flex items-center justify-between">
+        <img src={Logo} className="w-[60vh] mt-[-8.5vh] "  alt="Logo" />
+        <h1 className="text-[#82BFD6] mt-[-7.5vh] text-lg items-center ml-[120vh] mr-4">Empresas</h1>
+        <div className="w-[15vh] mt-[-7vh] border border-black rounded-lg px-1 py-1 border-[#545454] text-[#545454] flex items-center ml-auto mr-4">
 
-    const showNavbar = () => {
-        navRef.current.classList.toggle("responsive_nav");
-    };
-
-    useEffect(() => {
-        const handleWheel = (e) => {
-            e.preventDefault();
-        };
-
-        if (navRef.current) {
-            navRef.current.addEventListener('wheel', handleWheel);
-        }
-
-        return () => {
-            if (navRef.current) {
-                navRef.current.removeEventListener('wheel', handleWheel);
-            }
-        };
-    }, []);
-
-    const toggleOptions = () => {
-        setShowOptionsBox(!showOptionsBox);
-    };
-
-    const handleRegisterOption = (option) => {
-        setRegisterOption(option);
-        setShowRegisterOptions(false);
-    };
-
-    const handleCreateAccountClick = () => {
-        setShowOptionsBox(false);
-        setShowRegisterOptions(true);
-    };
-
-    const handleCloseRegisterOptions = () => {
-        setShowRegisterOptions(false);
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem("user");
-        setUser(null);
-        setShowOptionsBox(false);
-    };
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
-
-    return (
-        <>
-            <style>{`
-                @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
-
-                * {
-                  padding: 0;
-                  margin: 0;
-                  box-sizing: border-box;
-                  font-family: "Titillium Web", sans-serif;
-                }
-
-                :root {
-                  --mainColor: #29335c;
-                  --mainColorLight: #5767aa;
-                  --secondaryColor: #db2b39;
-                  --textColor: #eee;
-                }
-
-                header {
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  height: 80px;
-                  padding: 0 2rem;
-                  background-color: #84BED1;
-                  color: var(--textColor);
-                  z-index: 1000;
-                }
-
-                nav a {
-                  margin: 0 1rem;
-                  color: var(--textColor);
-                  text-decoration: none;
-                }
-
-                nav a:hover {
-                  color: var(--secondaryColor);
-                }
-
-                header .nav-btn {
-                  padding: 5px;
-                  cursor: pointer;
-                  background: #84BED1;
-                  border: none;
-                  outline: none;
-                  color: var(--textColor);
-                  visibility: hidden;
-                  opacity: 0;
-                  font-size: 1.8rem;
-                }
-
-                header div,
-                nav {
-                  display: flex;
-                  align-items: center;
-                  color: #45586E;
-                  margin-top: 23vh;
-                  margin-left: 5vh;
-                }
-
-                .buttons {
-                  display: flex;
-                  align-items: center;
-                  padding: 10px;
-                  margin: 5px;
-                  border: 1.2px solid black;
-                  border-radius: 8px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }
-
-                .buttons a {
-                  margin-left: 10px;
-                  color: #45586E;
-                  text-decoration: none;
-                }
-
-                .options-container {
-                  position: absolute;
-                  top: 60px;
-                  right: 10px;
-                  border: 1px solid #000;
-                  border-radius: 10px;
-                  background-color: white;
-                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                  padding: 10px;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 10px;
-                }
-
-                .option-button {
-                  padding: 10px;
-                  cursor: pointer;
-                  border: none;
-                  background-color: #f0f0f0;
-                  border-radius: 3px;
-                }
-
-                .option-button:hover {
-                  background-color: #e0e0e0;
-                }
-
-                @media only screen and (max-width: 1024px) {
-                  header .nav-btn {
-                    visibility: visible;
-                    opacity: 1;
-                  }
-
-                  header nav {
-                    position: fixed;
-                    top: -100vh;
-                    left: 0;
-                    height: 100%;
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 1.5rem;
-                    background-color: #84BED1;
-                  }
-
-                  header .responsive_nav {
-                    transform: translateY(100vh);
-                  }
-
-                  nav .nav-close-btn {
-                    position: absolute;
-                    top: 2rem;
-                    right: 2rem;
-                  }
-
-                  nav a {
-                    font-size: 1.5rem;
-                  }
-                }
-            `}</style>
-
-            <header>
-                <img src="https://media.licdn.com/dms/image/D4D03AQESeidv-KKHSw/profile-displayphoto-shrink_800_800/0/1715365853077?e=1722470400&v=beta&t=USoq2hSsiEukNaXDl68TSx7z_uuqDEx--RguYG0BwBE" alt="" />
-                
-                <nav ref={navRef}>
-                    <div className="buttons">
-                        <HouseIcon />
-                        <a href="/#">Hogar</a>
-                    </div>
-                    <div className="buttons">
-                        <MenuBookIcon />
-                        <a href="/#">Clases</a>
-                    </div>
-                    <div className="buttons">
-                        <SportsGymnasticsIcon />
-                        <a href="/#">Deportes</a>
-                    </div>
-                    <div className="buttons">
-                        <WidgetsIcon />
-                        <a href="/#">Otros</a>
-                    </div>
-                    <div className="buttons">
-                        <SpaIcon />
-                        <a href="/#">Cuidados</a>
-                    </div>
-                    <div className="buttons">
-                        <FaceIcon />
-                        <a href="/#">Belleza</a>
-                    </div>
-                    <div className="buttons">
-                        <PetsIcon />
-                        <a href="/#">Mascotas</a>
-                    </div>
-                </nav>
-                
-                <div>
-                    <a style={{ textDecoration: "none", color: "white", marginBottom: "20vh", marginLeft: "-50px" }} href="/#">Ofrecer servicios</a>
-                </div>
-
-                <div style={{ position: 'relative', marginLeft: "9vh", marginTop: "-20vh" }}>
-                    <div style={{ display: "flex", alignItems: "center", cursor: "pointer", borderRadius: "12px", border: "1px solid black", marginLeft: "-3vh", padding: "8px" }} onClick={toggleOptions}>
-                        <AccountCircleIcon />
-                        <span style={{ marginLeft: "8px", color: "black" }}>{user ? user.username : "Acceder"}</span>
-                    </div>
-                    {showOptionsBox && (
-                        <div className="options-container" style={{ width: "30vh" }}>
-                          {user ? (
-                            <>
-                              <Link to="/profile" style={{ textDecoration: "none", color: "#45586E" }}>
-                                <button className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Perfil</button>
-                              </Link>
-                              <Link to="/services" style={{ textDecoration: "none", color: "#45586E" }}>
-                                <button className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Servicios</button>
-                              </Link>
-                              <button onClick={handleLogout} className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Cerrar sesión</button>
-                            </>
-                          ) : (
-                            <>
-                              <Link to="/login" style={{ textDecoration: "none", color: "#45586E" }}>
-                                <button className="option-button" style={{ border: "1px solid #45586E", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Iniciar sesión</button>
-                              </Link>
-                              <button onClick={handleCreateAccountClick} className="option-button" style={{ border: "1px solid #45586E",backgroundColor: "#84BED1", borderRadius: "10px", color: "#45586E", width: "20vh" }}>Crear cuenta</button>
-                            </>
-                          )}
-                        </div>
-                    )}
-                </div>
-
-                    
-                <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-                    <span>&times;</span>
-                </button>
-                <button className="nav-btn" onClick={showNavbar}>
-                    <span>&#9776;</span>
-                </button>
-            </header>
-
-            {showRegisterOptions && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <div style={{
-                        backgroundColor: 'white',
-                        padding: '20px',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    }}>
-                        <h2>Elige una opción</h2>
-                        <button onClick={() => handleRegisterOption('ofrecer')}>Ofrecer servicios</button>
-                        <button onClick={() => handleRegisterOption('recibir')}>Recibir servicios</button>
-                        <button onClick={handleCloseRegisterOptions}>Cerrar</button>
-                    </div>
-                </div>
-            )}
-<div style={{ marginTop: "-10vh", marginLeft: "40vh" }}>
-                <SearchBar />
-            </div>
-            <div style={{marginLeft:"80vh", marginTop:"20vh"}}>
-            {showRegisterOptions && (
-                        <RegisterOrLogin selectedOption={selectedOption} onClose={handleCloseRegisterOptions} />
-                    )}
-            </div>
-        </>
-    );
+          <AccountCircleIcon />
+          Acceder
+        </div>
+        <div>
+        <div className="flex ml-[-184vh] gap-4">
+          <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex  w-[30vh] rounded-xl">
+            <img src={MedicinaGeneral} className="w-6 ml-2" alt="" />
+            <p className="mt-0.5 ml-3"> Medicina General</p>
+          </div>
+          <div className="border  mt-[12vh] bg-[#F2F2F2] flex  w-[30vh] rounded-xl">
+          <img src={Fisioterapia} className="w-7 h-[4.6vh] ml-2" alt="" />
+            <p className="mt-0.5 ml-3">Fisioterapia</p>
+          </div>
+          <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex w-[30vh] rounded-xl">
+          <img src={Nutricion} className="w-6 ml-2" alt="" />
+            <p className="mt-0.5 ml-3">Nutrición</p>
+          </div>
+          <div className="border  h-8 mt-[12vh] bg-[#F2F2F2] flex  w-[30vh] rounded-xl">
+          <img src={Psicologia} className="w-7 ml-2" alt="" />
+            <p className="mt-0.5 ml-3">Psicología</p>
+          </div>
+          <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex  w-[30vh] rounded-xl">
+          <img src={Deporte} className="w-8 ml-2" alt="" />
+            <p className="mt-0.5 ml-3">Deporte</p>
+          </div>
+        </div>
+        </div>
+      </div>
+         <div className="text-center text-[#3F6267] mt-[10vh]">
+        <h1 className="text-[8vh]">Salud de calidad desde la comodidad de tu hogar</h1>
+          <img src={Casita} className="w-[25vh] mt-[-16vh] ml-[170vh]" />
+        <img src={Raya} className="w-[30vh] ml-[50vh] mt-[8vh]" />
+         </div>
+         <div className="flex items-center mt-[-25vh] justify-center h-screen text-[#737373]">
+             <div className="mt-[-20.5vh] z-40  bg-[#E8E8E8] h-10 rounded-lg w-[24vh] text-center">
+              <p sty>¿Necesitas agendar?</p>
+              <p className="mt-[-4vh] ml-[23vh] w-[20vh]">Cancelar ahora</p>
+             </div>
+            <div className="text-center z-10 w-[90vh] bg-black flex ml-[-24vh] bg-[#E8E8E8] h-[20vh] rounded-lg">
+              <div className="flex mt-10 ml-5 bg-white w-[30vh]  rounded-lg h-[6vh]">
+               <h1 className="mt-1.5 ml-4">Tipo de atencion</h1>
+              <select name="atencion" id="" className="rounded-lg "></select>
+              </div>
+              <div className="flex mt-10 ml-4 bg-white w-[30vh]   rounded-lg h-[6vh]">
+               <h1 className="mt-1.5 ml-5">Tipo de atencion</h1>
+              <select name="atencion" id="" className="rounded-lg"></select>
+              </div>
+              <div className="flex mt-10 ml-4 bg-[#6D94A3] text-white w-[20vh]   rounded-lg h-[6vh]">
+                <img src={Calendario} className="w-8 h-8 mt-1 ml-1" alt="" />
+               <p className="mt-1.5 ml-2">Reservar</p>
+              </div>
+           </div>
+        </div>
+    </div>
+  );
 }
 
 export default NavBar;
