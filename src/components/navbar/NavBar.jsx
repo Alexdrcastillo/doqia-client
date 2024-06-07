@@ -11,7 +11,7 @@ import Calendario from "../../../images/calendario.png"
 
 function NavBar() {
   return (
-    <div className="bg-[#A7D2E2] h-10">
+    <div className="bg-[#A7D2E2] mt-[-40vh] h-10">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex">
           <div className="text-white text-xl font-bold mt-2">
@@ -55,31 +55,7 @@ function NavBar() {
         </div>
         </div>
       </div>
-         <div className="text-center text-[#3F6267] mt-[10vh]">
-        <h1 className="text-[8vh]">Salud de calidad desde la comodidad de tu hogar</h1>
-          <img src={Casita} className="w-[25vh] mt-[-16vh] ml-[170vh]" />
-        <img src={Raya} className="w-[30vh] ml-[50vh] mt-[8vh]" />
-         </div>
-         <div className="flex items-center mt-[-25vh] justify-center h-screen text-[#737373]">
-             <div className="mt-[-20.5vh] z-40  bg-[#E8E8E8] h-10 rounded-lg w-[24vh] text-center">
-              <p sty>¿Necesitas agendar?</p>
-              <p className="mt-[-4vh] ml-[23vh] w-[20vh]">Cancelar ahora</p>
-             </div>
-            <div className="text-center z-10 w-[90vh] flex ml-[-24vh] bg-[#E8E8E8] h-[20vh] rounded-lg">
-              <div className="flex mt-10 ml-5 bg-white w-[30vh]  rounded-lg h-[6vh]">
-               <h1 className="mt-1.5 ml-4">Tipo de atencion</h1>
-              <select name="atencion" id="" className="rounded-lg "></select>
-              </div>
-              <div className="flex mt-10 ml-4 bg-white w-[30vh]   rounded-lg h-[6vh]">
-               <h1 className="mt-1.5 ml-5">Tipo de atencion</h1>
-              <select name="atencion" id="" className="rounded-lg "></select>
-              </div>
-              <div className="flex mt-10 ml-4 bg-[#6D94A3] text-white w-[20vh]   rounded-lg h-[6vh]">
-                <img src={Calendario} className="w-8 h-8 mt-1 ml-1" alt="" />
-               <p className="mt-1.5 ml-2">Reservar</p>
-              </div>
-           </div>
-        </div>
+        
     </div>
   );
 }
