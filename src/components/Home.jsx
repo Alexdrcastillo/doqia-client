@@ -13,12 +13,18 @@ import Deporte2 from "../../images/deporte2.png";
 import Nutricion2 from "../../images/nutricion2.png";
 import Psicologia2 from "../../images/psicologia2.png";
 import Fisioterapia2 from "../../images/fisioterapia2.png";
+import MedicinaGeneral2 from "../../images/medicinaGeneral2.png"
+import Lucia from "../../images/lucia.png"
+import David from "../../images/david.png"
+import Jose from "../../images/jose.png"
+import ContactarMuñeco from "../../images/contactarMuñeco.png"
 
 const Home = () => {
   const [showDeporteInfo, setShowDeporteInfo] = useState(false);
   const [showFisioterapiaInfo, setShowFisioterapiaInfo] = useState(false);
   const [showPsicologiaInfo, setShowPsicologiaInfo] = useState(false);
   const [showNutricionInfo, setNutricionInfo] = useState(false);
+  const [showMedicinaGeneral, setMedicinaGeneral] = useState(false)
 
   const handleDeporteClick = () => {
     setShowDeporteInfo(true);
@@ -27,6 +33,9 @@ const Home = () => {
   const handleShowNutricionClick = () => {
     setNutricionInfo(true);
   };
+  const handleMedicinaGeralClick = () => {
+    setMedicinaGeneral(true)
+  }
 
   const handleFisioterapiaClick = () => {
     setShowFisioterapiaInfo(true);
@@ -41,6 +50,7 @@ const Home = () => {
     setShowFisioterapiaInfo(false);
     setShowPsicologiaInfo(false);
     setNutricionInfo(false)
+    setMedicinaGeneral(false)
   };
 
   return (
@@ -121,11 +131,12 @@ const Home = () => {
 
       <div className='mt-24'>
         <h1 className='text-[6vh] text-[#3F6267] ml-[-6vh] text-center'>Nuestros Servicios ¡Haz Clic y Conoce Más!</h1>
-        <div className='flex justify-center mt-24 items-center text-center gap-32 ml-[1vh]'>
+        <div className='flex justify-center mt-24 items-center text-center flex-wrap gap-32 ml-[1vh]'>
           <img src={Deporte2} alt="" onClick={handleDeporteClick} />
           <img src={Nutricion2} alt="" onClick={handleShowNutricionClick}/>
           <img src={Psicologia2} alt="" onClick={handlePsicologiaClick} />
           <img src={Fisioterapia2} alt="" onClick={handleFisioterapiaClick}/>
+          <img src={MedicinaGeneral2} className='mt-[-8vh]' alt="" onClick={handleMedicinaGeralClick}/>
         </div>
       </div>
 
@@ -235,7 +246,94 @@ Nuestros nutricionistas expertos están disponibles para consultas a domicilio y
           </div>
         </div>)}
 
+         {showMedicinaGeneral && (
+        <div style={{ position: "fixed", zIndex: "1000" }} className="fixed  top-0 left-0 w-full h-full  bg-black bg-opacity-50 flex justify-center items-center border-[#3F6267]">
+          <div className="bg-white p-8 rounded-lg w-[90vh] h-[95vh] max-w-4xl relative">
+            <button onClick={handleCloseClick} className="absolute top-2 right-2 text-xl">&times;</button>
+            <h1 className="text-3xl text-center font-bold mb-4 text-[#760E16]">Medicina General</h1>
+            <p className="mb-4">Nuestros médicos expertos están disponibles para consultas a domicilio y a través de telemedicina, brindándote la comodidad y flexibilidad que necesitas.</p>
+            <h3 className="text-xl font-semibold mb-2 text-[#3F6267]">Atención médica a Domicilio: </h3>
+           <div className='mt-[1vh]'>
+            <h3 className="text-xl font-semibold mb-2">¿Que incluye?</h3>
+            <p className="mt-[-6vh]"><span className='text-[8vh]'>.</span>Consulta médica a domicilio </p>
+            <p className="mt-[-6vh]"><span className='text-[8vh]'>.</span>Evaluación completa y personalizada en la comodidad de tu hogar.</p>
+            <p className="mt-[-6vh]"><span className='text-[8vh]'>.</span>Diagnóstico y tratamiento inmediato. </p>
+            <p className="mt-[-6vh]"><span className='text-[8vh]'>.</span>Recetas y recomendaciones adaptadas a tu entorno.</p>
+            <h3 className="text-xl text-[#3F6267] font-semibold mb-2">Atención médica por Telemedicina:</h3>
+            <h3 className="text-xl font-semibold mt-[-2vh] mb-3">¿Que incluye?</h3>
+            <p className="mt-[-9vh]"><span className='text-[8vh]'>.</span>Acceso a un médico experto desde cualquier lugar. </p>
+            <p className="mt-[-9vh]"><span className='text-[8vh]'>.</span>Evaluación y diagnóstico personalizado.</p>
+            <p className="mt-[-9vh]"><span className='text-[8vh]'>.</span>Recetas electrónicas y seguimiento continuo.</p>
+          <div className='bg-[#F3F2F7] w-[20vh] h-[6vh] mt-[5vh] text-center text-[#760E16] rounded-[10vh] ml-[28vh]'>
+            <h1 className='text-xl mt-[5vh]'> 
+            Agenda Ya
+            </h1>
+          </div>
+           </div>
+        
+
+      
+          </div>
+        </div>
+      )}
+
+      <div className='mt-24'>
+      <h1 className='text-[6vh] text-[#3F6267] ml-[-6vh] text-center'>Gracias por confiar en nosotros</h1>
+      <div className='flex justify-center mt-24 items-center text-center flex-wrap gap-24 ml-[1vh]'>
+      <div className='bg-[#E6E6E6] h-[40vh] w-[50vh] rounded-lg flex flex-col justify-center items-center'>
+         <img src={Lucia} className="w-[20vh] mt-[-20vh]" alt="" />
+       <h1 className='mt-4'>Lucia</h1>
+      <div className='text-center mt-2'>
+        <h1>“Por la condición de mi hija con autismo, estoy muy agradecida de la atención, puntualidad y paciencia. Lo recomiendo al 100%”</h1>
+         </div>
+      </div>
+
+      <div className='bg-[#E6E6E6] h-[40vh] w-[50vh] rounded-lg flex flex-col justify-center items-center'>
+          <img src={David} className="w-[20vh] mt-[-15vh]" alt="" />
+          <h1 className='mt-4'>David</h1>
+      <div className='text-center mt-2'>
+        <h1>“Excelentes profesionales. He tomado sesiones con un entrenador personal y ha hecho rutinas adaptadas a mi para hacer en casa. Suelo trabajar mucho y no me da tiempo para ir a gimnasios. Recomendado!!!! 👍🏻”</h1>
+         </div>
+          </div>
+
+          <div className='bg-[#E6E6E6] h-[40vh] w-[50vh] rounded-lg flex flex-col justify-center items-center'>
+          <img src={Jose} className="w-[20vh] mt-[-15vh]" />
+          <h1 className='mt-4'>Jose</h1>
+      <div className='text-center mt-2'>
+        <h1>“Recomiendo Doqia porque además de buen servicio, puedo solicitar medicos para mis padres adultos mayores y guardar su historial medico de forma ordenada. La experiencia del servicio fue muy satisfactoria.”</h1>
+         </div>
+          </div>
+        </div>
+      </div>
+      
+  <div className='bg-[#3F6267] w-[110vh] h-[70vh] mt-24 rounded-xl text-center flex flex-col items-center'>
+    <h1 className='text-white text-[6vh] mt-[-2vh]'>Contacta con Nosotros</h1>
+    <div className='mt-[5vh] flex-wrap w-full flex flex-col items-center'>
+      <input type="text" className='bg-white rounded-[20vh] w-[40vh] pl-4 text-black mb-6' placeholder='Nombre' />
+      <input type="text" className='bg-white rounded-[20vh] w-[40vh] pl-4 text-black mb-6' placeholder='Email' />
+      <input type="text" className='bg-white rounded-[20vh] w-[40vh] pl-4 text-black mb-6' placeholder="Telefono" />
+      <input type="text" className='bg-white rounded-[20vh] w-[40vh] pl-4 text-black mb-4' placeholder='Mensaje' />
     </div>
+    <div className=' mt-2'>
+      <div className="flex mb-4 w-[80vh] ">
+    <input type="checkbox" id="exampleCheckbox" className='rounded-xl mt-[-3.5vh]' name="exampleCheckbox"></input>
+    <p className='text-white text-sm'>Acepto recibir información que Doqia considere oportuno enviarme por correo. (Es posible darse de baja en cualquier momento)</p>
+          </div>
+          <div className="flex mb-4 w-[80vh] ">
+    <input type="checkbox" id="exampleCheckbox" className='rounded-xl mt-[-3.5vh]' name="exampleCheckbox"></input>
+    <p className='text-white text-sm'>He leído y acepto la información básica sobre protección de datos, así como la política de privacidad y acepto el tratamiento de mis datos para el trámite de la solicitud realizada</p>
+          </div>
+    </div>
+    <div className='bg-[#F3F2F7] w-[20vh] h-[6vh] text-center text-[#3F6267] rounded-[10vh] '>
+            <h1 className='text-xl'> 
+            Agenda Ya
+            </h1>
+          </div>
+  </div>
+  <img src={ContactarMuñeco} className='mt-[-75vh]  ml-[120vh]' alt="" />
+</div>  
+
+   
   );
 };
 
