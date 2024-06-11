@@ -6,6 +6,7 @@ import FormClient from './components/sesion/FormClient';
 import FormLogin from './components/sesion/FormLogin';
 import FormServiceUser from './components/sesion/FormServiceUser';
 import ResultsToSearch from './components/navbar/ResultsToSearch';
+import Perfil from './components/perfil/Perfil';
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -14,10 +15,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register/client" element={<FormClient />} />
-        <Route path="/login" element={<FormLogin />} />
-        <Route path="/register/userServices" element={<FormServiceUser />} />
-        <Route path="/results/:address/:occupation" element={<ResultsToSearch />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
     </>
   );

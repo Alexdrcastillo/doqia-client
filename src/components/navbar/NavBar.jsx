@@ -12,6 +12,7 @@ import ContinuarConCorreo from "../../../images/iniciarSesionConCorreo.png";
 import O from "../../../images/o.png";
 import RegistrarseConCorreo from "../../../images/registrarseConCorreo.png";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   const [showModal, setShowModal] = useState(false);
@@ -148,6 +149,9 @@ function NavBar() {
       </div>
       {showUserOptions && (
         <div className="absolute right-0 top-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-[20vh]">
+          <Link to={"/perfil"} className="py-6 px-4 cursor-pointer">
+            Perfil
+          </Link>
           <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>Cerrar sesión</div>
         </div>
       )}
@@ -217,13 +221,13 @@ function NavBar() {
                     <input
                       type="email"
                       placeholder="Email"
-                      className="border rounded-md p-2 mb-4 w-full"
+                      className="border border-[#05BEB4] rounded-md p-2 mb-4 w-full"
                       onChange={handleEmailChange}
                     />
                     <input
                       type="password"
                       placeholder="Contraseña"
-                      className="border rounded-md p-2 mb-4 w-full"
+                      className="border border-[#05BEB4] rounded-md p-2 mb-4 w-full"
                       onChange={handlePasswordChange}
                     />
                     <h1 className='text-[#05BEB4] ml-[40vh]'>¿Has olvidado tu contraseña?</h1>
