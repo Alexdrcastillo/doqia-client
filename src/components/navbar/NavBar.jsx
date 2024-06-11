@@ -21,7 +21,7 @@ function NavBar() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [users, setUsers] = useState([]);
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState('');
   const [showUserOptions, setShowUserOptions] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function NavBar() {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    setShowDropdown(false);
+    setShowUserOptions(false);
     window.location.reload(); // Recargar la página
   };
 
@@ -60,6 +60,7 @@ function NavBar() {
     setShowForm(false);
     toggleModal();
   };
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -81,19 +82,15 @@ function NavBar() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
   const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-
     const user = users.find(u => u.email === email && u.password === password);
-
-    console.log('User:', user);
 
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
-      setShowDropdown(false);
+      setShowModal(false);
       window.location.reload(); // Recargar la página
     } else {
       alert('Usuario o contraseña incorrectos');
@@ -111,13 +108,15 @@ function NavBar() {
       });
 
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      setShowDropdown(false);
+      setShowModal(false);
       window.location.reload(); // Recargar la página
     } catch (error) {
       console.error('Error creating user:', error);
       alert('Error al crear usuario');
     }
   };
+
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
   return (
     <div className="relative">
@@ -136,15 +135,26 @@ function NavBar() {
           <img src={Logo} className="w-[60vh] mt-[-8.5vh]" alt="Logo" />
           <h1 className="text-[#82BFD6] text-lg items-center ml-[110vh] mr-4">Empresas</h1>
           <div>
-            <div className="w-[15vh] mt-[7vh] border border-black rounded-lg px-1 py-1 border-[#545454] text-[#545454] flex items-center ml-auto mr-4 cursor-pointer" onClick={toggleDropdown} style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              <AccountCircleIcon />
-              {localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : 'Acceder'}
-            </div>
-            {localStorage.getItem('user') && showUserOptions && (
-              <div className="absolute right-4 top-20 mt-12 bg-white border border-gray-300 rounded-lg shadow-lg w-[20vh]">
-                <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>Cerrar sesión</div>
-              </div>
-            )}
+  {!user ? (
+    <div className="w-[15vh] mt-[7vh] border border-black rounded-lg px-1 py-1 border-[#545454] text-[#545454] flex items-center ml-auto mr-4 cursor-pointer" onClick={toggleDropdown} style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <AccountCircleIcon />
+      Acceder
+    </div>
+  ) : (
+    <div className="relative">
+      <div className="w-[15vh] mt-[7vh] border border-black rounded-lg px-1 py-1 border-[#545454] text-[#545454] flex items-center ml-auto mr-4 cursor-pointer" onClick={handleUserClick} style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <AccountCircleIcon />
+        {user.username}
+      </div>
+      {showUserOptions && (
+        <div className="absolute right-0 top-full mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-[20vh]">
+          <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>Cerrar sesión</div>
+        </div>
+      )}
+    </div>
+  )}
+
+ 
             <div className="flex ml-[-170vh] gap-4 mt-[-10vh]">
               <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex w-[30vh] rounded-xl">
                 <img src={MedicinaGeneral} className="w-6 ml-2" alt="" />
