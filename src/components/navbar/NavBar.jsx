@@ -135,10 +135,10 @@ function NavBar() {
             <div className="w-[15vh] mt-[7vh] border border-black rounded-lg px-1 py-1 border-[#545454] text-[#545454] flex items-center ml-auto mr-4 cursor-pointer" onClick={toggleDropdown} style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               <AccountCircleIcon />
               {localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : 'Acceder'}
+            </div>
               {localStorage.getItem('user') && (
                 <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>Cerrar sesión</div>
               )}
-            </div>
             <div className="flex ml-[-170vh] gap-4 mt-[-10vh]">
               <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex w-[30vh] rounded-xl">
                 <img src={MedicinaGeneral} className="w-6 ml-2" alt="" />
