@@ -37,6 +37,12 @@ function NavBar() {
     fetchUsers();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setShowDropdown(false);
+    window.location.reload(); // Recargar la página
+  };
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -52,7 +58,7 @@ function NavBar() {
   };
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-};
+  };
 
   const handleRegister = () => {
     setIsLogin(false);
@@ -92,14 +98,14 @@ function NavBar() {
 
   const handleRegisterFormSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const res = await axios.post('https://doqia-backend.onrender.com/users', {
         username: username,
         email: email,
         password: password,
       });
-    
+
       localStorage.setItem('user', JSON.stringify(res.data.user));
       setShowDropdown(false);
       window.location.reload(); // Recargar la página
@@ -129,6 +135,9 @@ function NavBar() {
             <div className="w-[15vh] mt-[7vh] border border-black rounded-lg px-1 py-1 border-[#545454] text-[#545454] flex items-center ml-auto mr-4 cursor-pointer" onClick={toggleDropdown} style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               <AccountCircleIcon />
               {localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : 'Acceder'}
+              {localStorage.getItem('user') && (
+                <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>Cerrar sesión</div>
+              )}
             </div>
             <div className="flex ml-[-170vh] gap-4 mt-[-10vh]">
               <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex w-[30vh] rounded-xl">
