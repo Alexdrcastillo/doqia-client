@@ -22,7 +22,7 @@ function NavBar() {
   const [password, setPassword] = useState('');
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("")
-
+  const [showUserOptions, setShowUserOptions] = useState(false);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -45,6 +45,10 @@ function NavBar() {
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const handleUserClick = () => {
+    setShowUserOptions(!showUserOptions);
   };
 
   const toggleDropdown = () => {
@@ -136,9 +140,11 @@ function NavBar() {
               <AccountCircleIcon />
               {localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).username : 'Acceder'}
             </div>
-              {localStorage.getItem('user') && (
+            {localStorage.getItem('user') && showUserOptions && (
+              <div className="absolute right-4 top-20 mt-12 bg-white border border-gray-300 rounded-lg shadow-lg w-[20vh]">
                 <div className="py-2 px-4 cursor-pointer" onClick={handleLogout}>Cerrar sesión</div>
-              )}
+              </div>
+            )}
             <div className="flex ml-[-170vh] gap-4 mt-[-10vh]">
               <div className="border h-8 mt-[12vh] bg-[#F2F2F2] flex w-[30vh] rounded-xl">
                 <img src={MedicinaGeneral} className="w-6 ml-2" alt="" />
