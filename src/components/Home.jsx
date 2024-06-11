@@ -55,11 +55,11 @@ const Home = () => {
 
   return (
     <div>
-      <div style={{ position: "fixed", zIndex: "500" }} className='w-full'>
+      <div style={{ position: "fixed", zIndex: "500", marginTop: "-3vh" }} className='w-full'>
         <NavBar />
       </div>
 
-      <div className="text-center text-[#3F6267] mt-[40vh]">
+      <div className="text-center text-[#3F6267] mt-[43vh]">
         <h1 className="text-[8vh]">Salud de calidad desde la comodidad de tu hogar</h1>
         <img src={Casita} className="w-[25vh] mt-[-16vh] ml-[170vh]" />
         <img src={Raya} className="w-[30vh] ml-[50vh] mt-[8vh]" />
